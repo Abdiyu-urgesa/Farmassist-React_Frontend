@@ -36,6 +36,7 @@ def createRegion(request):
                 my_group = Group.objects.get(name='region')
                 my_group.user_set.add(user)
                 if user and created_By:
+                    print("/n/n am in /n/n")
                     UserProfile.objects.create(
                     user=user,
                     fname=data['fname'],
@@ -52,6 +53,8 @@ def createRegion(request):
                     )
                     pk=region.id
                     reg=Region.objects.get(id=pk)
+                    print("/n/n reg /n/n")
+                    print(reg )
                     serializer = RegionSerializer(reg, many=False)
                     return Response(serializer.data)
                 else:
