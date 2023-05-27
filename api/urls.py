@@ -1,8 +1,8 @@
 from django.urls import path
 from . import views
 from .view import privatesector_view 
-from .view import zone_view
 from .view import region_view 
+from .view import zone_view 
 from .view import federal_view 
 from .view import resource_view
 from rest_framework_simplejwt.views import (TokenRefreshView,)
@@ -29,11 +29,12 @@ urlpatterns = [
     path('region/<str:pk>', region_view.getRegion, name="get-one-region"),
     path('region/<str:pk>/update/', region_view.updatRegion, name="update-region"),
 
-     path('zones/', zone_view.getZones, name="get-all-federals"),
+
+    path('zones/', zone_view.getZones, name="get-all-zones"),
     path('zone/create', zone_view.createZone,
-         name="create-region"),
-    path('zone/<str:pk>', zone_view.getZone, name="get-one-region"),
-    path('zone/<str:pk>/update/', zone_view.updatZone, name="update-region"),
+         name="create-zone"),
+    path('zone/<str:pk>', zone_view.getZone, name="get-one-zone"),
+    path('zone/<str:pk>/update/', zone_view.updatZone, name="update-zone"),
 
 
 

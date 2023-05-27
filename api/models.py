@@ -174,11 +174,11 @@ class Post(models.Model):
     posted_by = models.OneToOneField(User,null=True , on_delete=models.CASCADE)
     title = models.CharField(max_length=200, null=True)
     discription = models.CharField(max_length=200, null=True)
-    thumbnail=models.CharField(max_length=200, null=True)
+    thumbnail=models.ImageField(blank=True, null=True)
     rank=models.CharField(max_length=200, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.name
+        return self.title

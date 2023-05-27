@@ -1,8 +1,8 @@
 from rest_framework.response import Response
+from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 from rest_framework.decorators import api_view,permission_classes
 from rest_framework.permissions import IsAuthenticated
-from django.contrib.auth.models import User
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from ..decorators import allowed_users
 JWT_authenticator = JWTAuthentication()
@@ -19,6 +19,8 @@ def getRegions(request):
 
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal'])
 def createRegion(request):
     data = request.data
     response = JWT_authenticator.authenticate(request)
@@ -36,7 +38,6 @@ def createRegion(request):
                 my_group = Group.objects.get(name='region')
                 my_group.user_set.add(user)
                 if user and created_By:
-                    print("/n/n am in /n/n")
                     UserProfile.objects.create(
                     user=user,
                     fname=data['fname'],
@@ -53,8 +54,6 @@ def createRegion(request):
                     )
                     pk=region.id
                     reg=Region.objects.get(id=pk)
-                    print("/n/n reg /n/n")
-                    print(reg )
                     serializer = RegionSerializer(reg, many=False)
                     return Response(serializer.data)
                 else:
@@ -68,6 +67,8 @@ def createRegion(request):
    
         
 @api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal'])
 def getRegion(request, pk):
     try:
         region = Region.objects.get(id=pk)
@@ -78,6 +79,8 @@ def getRegion(request, pk):
 
 
 @api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal'])
 def updatRegion(request, pk):
     data = request.data
     region = Region.objects.get(id=pk)
@@ -85,6 +88,7 @@ def updatRegion(request, pk):
     if serializer.is_valid():
         serializer.save()
     else:
+        print("its me")
         return Response(serializer.errors)
     return Response(serializer.data)
 
