@@ -8,3 +8,4 @@ pipenv==2023.2.18
 psycopg2==2.9.5
 sqlparse==0.4.3
 uvicorn==0.20.0
+Pillow==9.4.0
