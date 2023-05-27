@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from .view import privatesector_view 
+from .view import zone_view
 from .view import region_view 
 from .view import federal_view 
 from .view import resource_view
@@ -22,11 +23,17 @@ urlpatterns = [
     path('federal/<str:pk>/update/', federal_view.updatFederal, name="update-federal"),
 
 
-     path('regions/', region_view.getRegions, name="get-all-federals"),
+    path('regions/', region_view.getRegions, name="get-all-federals"),
     path('region/create', region_view.createRegion,
          name="create-region"),
     path('region/<str:pk>', region_view.getRegion, name="get-one-region"),
     path('region/<str:pk>/update/', region_view.updatRegion, name="update-region"),
+
+     path('zones/', zone_view.getZones, name="get-all-federals"),
+    path('zone/create', zone_view.createZone,
+         name="create-region"),
+    path('zone/<str:pk>', zone_view.getZone, name="get-one-region"),
+    path('zone/<str:pk>/update/', zone_view.updatZone, name="update-region"),
 
 
 
