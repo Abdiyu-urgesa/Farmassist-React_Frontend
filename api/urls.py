@@ -3,6 +3,9 @@ from . import views
 from .view import privatesector_view 
 from .view import region_view 
 from .view import zone_view 
+from .view import woreda_view 
+from .view import KebeleAdmin_view 
+from .view import kebeleBusiness_view 
 from .view import federal_view 
 from .view import resource_view
 from rest_framework_simplejwt.views import (TokenRefreshView,)
@@ -35,6 +38,24 @@ urlpatterns = [
          name="create-zone"),
     path('zone/<str:pk>', zone_view.getZone, name="get-one-zone"),
     path('zone/<str:pk>/update/', zone_view.updatZone, name="update-zone"),
+
+    path('woredas/', woreda_view.getWeredas, name="get-all-zones"),
+    path('woreda/create', woreda_view.createWoreda,
+         name="create-woreda"),
+    path('woreda/<str:pk>', woreda_view.getWoreda, name="get-one-woreda"),
+    path('woreda/<str:pk>/update/', woreda_view.updateWoreda, name="update-woreda"),
+
+    path('kebeleadmins/', KebeleAdmin_view.getKebeleAdmins, name="get-all-zones"),
+    path('kebeleadmin/create', KebeleAdmin_view.createKebeleAdmins,
+         name="create-kebeleadmin"),
+    path('kebeleadmin/<str:pk>', KebeleAdmin_view.getkebeleadmin, name="get-one-kebeleadmin"),
+    path('kebeleadmin/<str:pk>/update/', KebeleAdmin_view.updateKebeleAdmin, name="update-kebeleadmin"),
+
+    path('kebelebusinesses/', kebeleBusiness_view.getKebeleBusiness, name="get-all-zones"),
+    path('kbelebusiness/create', kebeleBusiness_view.createKebeleBusiness,
+         name="create-kbelebusiness"),
+    path('kbelebusiness/<str:pk>', kebeleBusiness_view.getKebeleBusines, name="get-one-kbelebusiness"),
+    path('kbelebusiness/<str:pk>/update/', kebeleBusiness_view.updateKebeleBusiness, name="update-kbelebusiness"),
 
 
 
