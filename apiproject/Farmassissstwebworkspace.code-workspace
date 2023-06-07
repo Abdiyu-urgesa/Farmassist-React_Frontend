@@ -1,0 +1,14 @@
+{
+  "folders": [
+	{
+		"path": "../../backend/Farmassissstbackend"
+	},
+	{
+		"path": "../../frontend/farmassist-dashboard"
+	},
+	{
+		"path": ".."
+	}
+],
+  "settings": {}
+}
