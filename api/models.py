@@ -137,12 +137,11 @@ class Farmer(models.Model):
         return self.land_map_id  
 
 
-
-
 class Report(models.Model):
     reported_by= models.CharField(max_length=200, null=True)
     reported_to=models.CharField(max_length=200, null=True)
-    name = models.CharField(max_length=200, null=False)
+    report_name = models.CharField(max_length=200, null=False)
+    report_file=models.FileField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -176,7 +175,6 @@ class Post(models.Model):
     discription = models.CharField(max_length=200, null=True)
     thumbnail=models.ImageField(blank=True, null=True)
     rank=models.CharField(max_length=200, null=True)
-
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     updated_at = models.DateTimeField(auto_now=True)
 
