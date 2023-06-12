@@ -8,6 +8,8 @@ from .view import resource_view
 from .view import woreda_view 
 from .view import KebeleAdmin_view 
 from .view import kebeleBusiness_view 
+from .view import farmer_view
+from .view import post_view
 from rest_framework_simplejwt.views import (TokenRefreshView,)
 
 urlpatterns = [
@@ -60,11 +62,19 @@ urlpatterns = [
     path('private/<str:pk>', privatesector_view.getprivateSector, name="get-one-private"),
     path('private/<str:pk>/update/', privatesector_view.updatePrivateSector, name="update-private"),
 
+
+    path('farmers/', farmer_view.getFarmers, name="get-all-farmer"),
+    path('farmer/create', farmer_view.createFarmer,name="create-farmer"),
+    path('farmer/<str:pk>', farmer_view.getFarmer, name="get-one-farmer"),
+    path('farmer/<str:pk>/update/', farmer_view.updateFarmer, name="update-farmer"),
+
     path('resources/', resource_view.getResources, name="get-all-resource"),
     path('sentresources/', resource_view.getSentResource, name="get-all-sent-resource"),
     path('recievedresources/', resource_view.getrecievedResource, name="get-all-recieved-resource"),
     path('resource/', resource_view.getResource, name="get-one-resource"),
     path('transfer/', resource_view.transferResource, name="transfer-resource"),
+
+    path('posts/', post_view.getPosts, name="get-all-posts"),
     
 
 ]

@@ -79,6 +79,12 @@ class PrivateSerializer(ModelSerializer):
         model = PrivateSector
         fields = '__all__'
 
+class PostSerializer(ModelSerializer):
+    to = UserSerializer(many=False)
+    class Meta:
+        model = Post
+        fields = '__all__'
+
 class AnnouncementSerializer(ModelSerializer):
     to = UserSerializer(many=False)
     class Meta:

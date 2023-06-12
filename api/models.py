@@ -170,7 +170,7 @@ class Disease(models.Model):
         return self.name
 
 class Post(models.Model):
-    posted_by = models.OneToOneField(User,null=True , on_delete=models.CASCADE)
+    posted_by =  models.ForeignKey(User, null=True ,on_delete=models.SET_NULL)
     title = models.CharField(max_length=200, null=True)
     discription = models.CharField(max_length=200, null=True)
     thumbnail=models.ImageField(blank=True, null=True)
