@@ -80,13 +80,13 @@ class PrivateSerializer(ModelSerializer):
         fields = '__all__'
 
 class PostSerializer(ModelSerializer):
-    to = UserSerializer(many=False)
+    posted_by = UserSerializer(many=False)
     class Meta:
         model = Post
         fields = '__all__'
 
 class AnnouncementSerializer(ModelSerializer):
-    posted_by = UserSerializer(many=False)
+    to = UserSerializer(many=False)
     class Meta:
         model = Announcement
         fields = '__all__'
