@@ -17,8 +17,8 @@ def getPosts(request):
             posts = Post.objects.all()
             serializer = PostSerializer(posts, many=True)
             return Response(serializer.data)
-        except:
-            return Response("something went wrong in the try block") 
+        except Exception as e:
+            return Response(e) 
 
 
 
