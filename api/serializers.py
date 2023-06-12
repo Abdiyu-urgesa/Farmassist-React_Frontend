@@ -86,7 +86,7 @@ class PostSerializer(ModelSerializer):
         fields = '__all__'
 
 class AnnouncementSerializer(ModelSerializer):
-    to = UserSerializer(many=False)
+    posted_by = UserSerializer(many=False)
     class Meta:
         model = Announcement
         fields = '__all__'
