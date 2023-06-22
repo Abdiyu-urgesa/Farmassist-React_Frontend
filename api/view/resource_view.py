@@ -83,6 +83,8 @@ def transferResource(request):
         request_user , token = response
         user=User.objects.get(id=request_user.id)
         resource=request_user.resource_set.get(id=data['resource_id'])
+        if resource.amount < data['amouint']:
+            return Response("no enough resource left")
         if resource and user:
             newresource = SentResource.objects.create(
                 name=resource.name,
