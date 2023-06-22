@@ -26,19 +26,23 @@ def getResources(request):
 @allowed_users(allowed_rolls=['federal'])
 def createResource(request):
     data = request.data
+    print(data)
     response = JWT_authenticator.authenticate(request)
     request_user , token = response
+    user=User.objects.get(id=request_user.id)
     try:
-        resource = Resource.objects.create(
-            name=data['name'],
-            type=data['type'],
-            amount=data['amount'],
-            price_perKilo=data['price_perKilo'],
-            user=request_user
-        )       
-        serializer = ResourceSerializer(resource, many=False)
-        return Response(serializer.data)
-    
+        if(user):
+            resource = Resource.objects.create(
+                name=data['name'],
+                type=data['type'],
+                amount=data['amount'],
+                price_perKilo=data['price_perKilo'],
+                user=user
+            )       
+            serializer = ResourceSerializer(resource, many=False)
+            return Response(serializer.data)
+        else:
+            return Response("user not found")
     except:
         return Response("something went wrong in the try block") 
         
