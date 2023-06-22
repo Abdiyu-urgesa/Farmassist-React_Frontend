@@ -81,21 +81,22 @@ def transferResource(request):
         data = request.data
         response = JWT_authenticator.authenticate(request)
         request_user , token = response
+        user=User.objects.get(id=request_user.id)
         resource=request_user.resource_set.get(id=data['resource_id'])
-        if resource:
+        if resource and user:
             newresource = SentResource.objects.create(
                 name=resource.name,
                 type=resource.type,
                 status="pending",
                 amount=data['amount'],
                 price_perKilo=resource.price_perKilo,
-                sender=request_user.id,
+                sender=user,
                 reciever=data['to'],
             )       
             serializer = SentResourceSerializer(newresource, many=False)
             return Response(serializer.data)
         else:
-            return Response("no mathing resource found")
+            return Response("no mathing resource or user found")
     except Exception:
         return Response(Exception)
     
