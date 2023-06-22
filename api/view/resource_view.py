@@ -31,7 +31,7 @@ def createResource(request):
     request_user , token = response
     user=User.objects.get(id=request_user.id)
     try:
-        if(user):
+        if user:
             resource = Resource.objects.create(
                 name=data['name'],
                 type=data['type'],
@@ -39,7 +39,8 @@ def createResource(request):
                 price_perKilo=data['price_perKilo'],
                 user=user
             )       
-            serializer = ResourceSerializer(resource, many=False)
+            _resource=Resource.objects.get(id=resource.id)
+            serializer = ResourceSerializer(_resource, many=False)
             return Response(serializer.data)
         else:
             return Response("user not found")
