@@ -69,6 +69,7 @@ urlpatterns = [
     path('farmer/<str:pk>/update/', farmer_view.updateFarmer, name="update-farmer"),
 
     path('resources/', resource_view.getResources, name="get-all-resource"),
+    path('resources/create', resource_view.createResource, name="get-all-resource"),
     path('sentresources/', resource_view.getSentResource, name="get-all-sent-resource"),
     path('recievedresources/', resource_view.getrecievedResource, name="get-all-recieved-resource"),
     path('resource/', resource_view.getResource, name="get-one-resource"),

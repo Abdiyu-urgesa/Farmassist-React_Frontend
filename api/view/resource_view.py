@@ -82,7 +82,7 @@ def transferResource(request):
                 status="pending",
                 amount=data['amount'],
                 price_perKilo=resource.price_perKilo,
-                sender=data['from'],
+                sender=request_user.id,
                 reciever=data['to'],
             )       
             serializer = SentResourceSerializer(newresource, many=False)
