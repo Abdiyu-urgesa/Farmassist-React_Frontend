@@ -84,7 +84,7 @@ def transferResource(request):
         request_user , token = response
         user=User.objects.get(id=request_user.id)
         resource=request_user.resource_set.get(id=data['resource_id'])
-        if int(resource.amount) < int(data['amouint']) and data['amouint']=='':
+        if int(resource.amount) < int(data['amount']) and data['amount']=='':
             return Response("no enough resource left")
         if resource and user:
             newresource = SentResource.objects.create(
@@ -96,8 +96,8 @@ def transferResource(request):
                 sender=user,
                 reciever=data['to'],
             )   
-            newrecource=SentResource.objects.get(id=newresource.id)
-            serializer = SentResourceSerializer(newrecource, many=False)
+            _newrecource=SentResource.objects.get(id=newresource.id)
+            serializer = SentResourceSerializer(_newrecource, many=False)
             return Response(serializer.data)
         else:
             return Response("no mathing resource or user found")
