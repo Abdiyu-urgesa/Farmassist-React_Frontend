@@ -92,8 +92,9 @@ def transferResource(request):
                 price_perKilo=resource.price_perKilo,
                 sender=user,
                 reciever=data['to'],
-            )       
-            serializer = SentResourceSerializer(newresource, many=False)
+            )   
+            newrecource=SentResource.objects.get(id=newresource.id)
+            serializer = SentResourceSerializer(newrecource, many=False)
             return Response(serializer.data)
         else:
             return Response("no mathing resource or user found")
