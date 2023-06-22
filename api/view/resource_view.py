@@ -26,12 +26,15 @@ def getResources(request):
 @allowed_users(allowed_rolls=['federal'])
 def createResource(request):
     data = request.data
+    response = JWT_authenticator.authenticate(request)
+    request_user , token = response
     try:
         resource = Resource.objects.create(
             name=data['name'],
             type=data['type'],
             amount=data['amount'],
-            price_perKilo=data['price_perKilo']
+            price_perKilo=data['price_perKilo'],
+            user=request_user
         )       
         serializer = ResourceSerializer(resource, many=False)
         return Response(serializer.data)
