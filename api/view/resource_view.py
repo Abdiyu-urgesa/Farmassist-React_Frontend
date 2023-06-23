@@ -87,6 +87,7 @@ def transferResource(request):
         if int(resource.amount) < int(data['amount']):
             return Response("no enough resource left")
         if resource and user:
+            resource.amount=int(resource.amuount)-int(data['amount'])
             newresource = SentResource.objects.create(
                 name=resource.name,
                 type=resource.type,
@@ -165,7 +166,7 @@ def acceptResource(request):
             return Response(serializer.data)
         else:
             print("user dont have this resource tpe so create new field for him")
-            print(sentresource.name,sentresource.type,sentresource.price_perKilo,amount=sentresource.amount,)
+            print(sentresource.name,sentresource.type,sentresource.price_perKilo,sentresource.amount,)
             newresource = Resource.objects.create(
             name=sentresource.name,
             type=sentresource.type,
@@ -173,8 +174,7 @@ def acceptResource(request):
             price_perKilo=sentresource.price_perKilo,
             user=user,
         )    
-            newrec=Resource.objects.get(newresource.id)    
-            serializer = ResourceSerializer(newrec, many=True)
+            print(newresource)
             print("uih delete from sent recource")
             sentresource.delete()
             rec=SentResource.objects.filter(reciever=user.id)
@@ -183,3 +183,45 @@ def acceptResource(request):
     except Exception:
         return Response(Exception)
 
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+def declineResource(request):
+    try:
+        data = request.data
+        response = JWT_authenticator.authenticate(request)
+        request_user , token = response
+        user=User.objects.get(id=request_user.id)
+        sentresource = SentResource.objects.filter(id=data['resource_id']).first()
+        print("rreached here",sentresource.sender,"\n\n")
+
+        sender=User.objects.get(username=sentresource.sender)
+        resource_old=Resource.objects.filter(user=sender , name=sentresource.name).first()
+        print("reached here")
+        if resource_old:
+            print("user have it already have this resource so only update the amount")
+            resource_old.amount=int(resource_old.amount)+int(sentresource.amount)
+            resource_old.save()
+            print("uih delete from sent recource")
+            sentresource.delete()
+            rec=SentResource.objects.filter(reciever=user.id)
+            serializer = SentResourceSerializer(rec, many=True)
+            return Response(serializer.data)
+        else:
+            print("user dont have this resource tpe so create new field for him")
+            newresource = Resource.objects.create(
+            name=sentresource.name,
+            type=sentresource.type,
+            amount=sentresource.amount,
+            price_perKilo=sentresource.price_perKilo,
+            user=sender,
+        )    
+            print(newresource)
+            print("uih delete from sent recource")
+            sentresource.delete()
+            rec=SentResource.objects.filter(reciever=user.id)
+            serializer = SentResourceSerializer(rec, many=True)
+            return Response(serializer.data)
+    except Exception as e:
+        print (e)
+        return Response(e)
