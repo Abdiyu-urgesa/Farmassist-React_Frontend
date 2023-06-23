@@ -145,34 +145,14 @@ def getrecievedResource(request):
 def acceptResource(request):
     try:
         data = request.data
+        print(data)
+
         response = JWT_authenticator.authenticate(request)
         request_user , token = response
-        user=User.objects.get(id=request_user.id)
-        sentresource = SentResource.objects.get(id=data['resource_id'])
-        resource_old=Resource.objects.get(user=user , name=sentresource.name)
-
-        if resource_old:
-            print("user have it already have this resource so only update the amount")
-            resource_old.amount=int(resource_old.amount)+int(data['amount'])
-            resource_old.save()
-            serializer = ResourceSerializer(resource_old, many=False)
-            print("uih delete from sent recource")
-            sentresource.delete()
-            return Response("resourece accepted succesfully")
-        else:
-            print("user dont have this resource tpe so create new field for him")
-            newresource = Resource.objects.create(
-            name=sentresource.name,
-            type=sentresource.type,
-            amount=data['amount'],
-            price_perKilo=sentresource.price_perKilo,
-            user=user,
-        )    
-            newrec=Resource.objects.get(newresource.id)    
-            serializer = ResourceSerializer(newrec, many=True)
-            print("uih delete from sent recource")
-            sentresource.delete()
-            return Response(serializer.data)   
+        #user=User.objects.get(id=request_user.id)
+        print(data)
+        #
     except Exception:
+        print(Exception)
         return Response(Exception)
 
