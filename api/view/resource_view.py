@@ -127,7 +127,7 @@ def getrecievedResource(request):
         response = JWT_authenticator.authenticate(request)
         request_user , token = response
         user=User.objects.get(id=request_user.id)
-        resources=SentResource.objects.filter(reciever=user)
+        resources=SentResource.objects.filter(reciever=user.id)
         serializer = SentResourceSerializer(resources, many=True)
         return Response(serializer.data)
         
@@ -143,9 +143,13 @@ def getrecievedResource(request):
 def acceptResource(request):
     try:
         data = request.data
-        resource = Resource.objects.get(id=data['resource_id'])
+        response = JWT_authenticator.authenticate(request)
+        request_user , token = response
+        resource = SentResource.objects.get(id=data['resource_id'])
         to=User.objects.get(id=data['to'])
         resource_old=Resource.objects.get(user=to , name=resource.name)
+
+
         
         if resource_old:
             print("user have it already have this resource so only update the amount")
