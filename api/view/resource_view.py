@@ -138,8 +138,10 @@ def getrecievedResource(request):
 
 
 
-# deal with this later
+
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
 def acceptResource(request):
     try:
         data = request.data

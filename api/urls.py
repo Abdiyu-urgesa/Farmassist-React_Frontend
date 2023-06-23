@@ -72,6 +72,7 @@ urlpatterns = [
     path('resources/create', resource_view.createResource, name="get-all-resource"),
     path('sentresources/', resource_view.getSentResource, name="get-all-sent-resource"),
     path('recievedresources/', resource_view.getrecievedResource, name="get-all-recieved-resource"),
+    path('recievedresources/accept/', resource_view.acceptResource),
     path('resource/', resource_view.getResource, name="get-one-resource"),
     path('transfer/', resource_view.transferResource, name="transfer-resource"),
 
