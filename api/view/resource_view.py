@@ -126,7 +126,8 @@ def getrecievedResource(request):
     try:
         response = JWT_authenticator.authenticate(request)
         request_user , token = response
-        resources=SentResource.objects.filter(reciever=request_user.id)
+        user=User.objects.get(id=request_user.id)
+        resources=SentResource.objects.filter(reciever=user)
         serializer = SentResourceSerializer(resources, many=True)
         return Response(serializer.data)
         
