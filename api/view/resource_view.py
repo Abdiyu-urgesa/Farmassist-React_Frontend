@@ -158,10 +158,11 @@ def acceptResource(request):
             print("user have it already have this resource so only update the amount")
             resource_old.amount=int(resource_old.amount)+int(sentresource.amount)
             resource_old.save()
-            serializer = ResourceSerializer(resource_old, many=False)
             print("uih delete from sent recource")
             sentresource.delete()
-            return Response("resourece accepted succesfully")
+            rec=SentResource.objects.filter(reciever=user.id)
+            serializer = SentResourceSerializer(rec, many=True)
+            return Response(serializer.data)
         else:
             print("user dont have this resource tpe so create new field for him")
             print(sentresource.name,sentresource.type,sentresource.price_perKilo,amount=sentresource.amount,)
@@ -176,7 +177,9 @@ def acceptResource(request):
             serializer = ResourceSerializer(newrec, many=True)
             print("uih delete from sent recource")
             sentresource.delete()
-            return Response(serializer.data)   
+            rec=SentResource.objects.filter(reciever=user.id)
+            serializer = SentResourceSerializer(rec, many=True)
+            return Response(serializer.data)
     except Exception:
         return Response(Exception)
 
