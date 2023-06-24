@@ -120,6 +120,8 @@ class BarSerializer(serializers.Serializer):
     zonescolor = serializers.CharField()
     woredas = serializers.IntegerField()
     woredascolor = serializers.CharField()
+    kebeleAdmin = serializers.IntegerField()
+    kebeleAdmincolor = serializers.CharField()
 
 
 

@@ -20,17 +20,22 @@ def getbardata(request):
     regions = Region.objects.all()
 
     for region in regions:
-        zones = Zone.objects.filter(created_by=region).count()
+        zonesnum = Zone.objects.filter(created_by=region).count()
         zones = Zone.objects.filter(created_by=region)
         for zone in zones:
-            woredas=Woreda.objects.filter(created_by=zone).count()
-            combined_Data.append({
-                "region":region.Region_name,
-                "zones":zones,
-                "zonescolor": f"hsl({zones+5*10},70%,50%)",
-                "woredas":woredas,
-                "zonescolor": f"hsl({zones+8*20},70%,50%)",
-            })
+            woredasnum=Woreda.objects.filter(created_by=zone).count()
+            woredas=Woreda.objects.filter(created_by=zone)
+            for wereda in woredas:
+                kebeleAdminnum=KebeleAdmin.objects.filter(created_by=wereda).count()
+                combined_Data.append({
+                    "region":region.Region_name,
+                    "zones":zonesnum,
+                    "zonescolor": f"hsl({zonesnum+5*10},70%,50%)",
+                    "woredas":woredasnum,
+                    "woredascolor": f"hsl({woredasnum+13*6},70%,50%)",
+                    "kebeleAdmin":kebeleAdminnum,
+                    "kebeleAdmincolor": f"hsl({kebeleAdminnum+8*12},70%,50%)",
+                })
 
 
 
