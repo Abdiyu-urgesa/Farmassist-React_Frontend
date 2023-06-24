@@ -118,6 +118,8 @@ class BarSerializer(serializers.Serializer):
     region = serializers.CharField()
     zones = serializers.IntegerField()
     zonescolor = serializers.CharField()
+    woredas = serializers.IntegerField()
+    woredascolor = serializers.CharField()
 
 
 

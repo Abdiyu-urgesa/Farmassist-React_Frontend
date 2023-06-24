@@ -21,12 +21,16 @@ def getbardata(request):
 
     for region in regions:
         zones = Zone.objects.filter(created_by=region).count()
-        print(zones)
-        combined_Data.append({
-            "region":region.Region_name,
-            "zones":zones,
-            "zonescolor": f"hsl({zones+5*10},70%,50%)"
-        })
+        zones = Zone.objects.filter(created_by=region)
+        for zone in zones:
+            woredas=Woreda.objects.filter(created_by=zone).count()
+            combined_Data.append({
+                "region":region.Region_name,
+                "zones":zones,
+                "zonescolor": f"hsl({zones+5*10},70%,50%)",
+                "woredas":woredas,
+                "zonescolor": f"hsl({zones+8*20},70%,50%)",
+            })
 
 
 
