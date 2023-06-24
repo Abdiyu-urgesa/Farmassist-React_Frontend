@@ -87,7 +87,8 @@ def transferResource(request):
         if int(resource.amount) < int(data['amount']):
             return Response("no enough resource left")
         if resource and user:
-            resource.amount=int(resource.amuount)-int(data['amount'])
+            resource.amount=int(resource.amount)-int(data['amount'])
+            resource.save()
             newresource = SentResource.objects.create(
                 name=resource.name,
                 type=resource.type,
