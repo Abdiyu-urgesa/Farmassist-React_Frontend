@@ -114,7 +114,7 @@ def getSentResource(request):
         response = JWT_authenticator.authenticate(request)
         request_user , token = response
         user=User.objects.get(id=request_user.id)
-        resources=SentResource.objects.filter(sender=user)
+        resources=SentResource.objects.filter(sender=user).order_by('created_at')
         serializer = SentResourceSerializer(resources, many=True)
         return Response(serializer.data)
         
