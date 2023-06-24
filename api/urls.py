@@ -10,6 +10,8 @@ from .view import KebeleAdmin_view
 from .view import kebeleBusiness_view 
 from .view import farmer_view
 from .view import post_view
+from .view import report_view
+from .view import dashboard_view
 from rest_framework_simplejwt.views import (TokenRefreshView,)
 
 urlpatterns = [
@@ -79,6 +81,13 @@ urlpatterns = [
     path('transfer/', resource_view.transferResource, name="transfer-resource"),
 
     path('posts/', post_view.getPosts, name="get-all-posts"),
+
+     path('reports/', report_view.getReports),
+     path('reports/create', report_view.createReport),
+
+     path('bardata/', dashboard_view.getbardata),
+
+
     
 
 ]

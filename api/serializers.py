@@ -1,6 +1,7 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework.serializers import StringRelatedField ,SlugRelatedField
 from django.contrib.auth.models import User
+from rest_framework import serializers
 from .models import *
 
 
@@ -102,10 +103,24 @@ class ResourceSerializer(ModelSerializer):
     class Meta:
         model = Resource
         fields = '__all__'
+
+class ReportSerializer(ModelSerializer):
+    class Meta:
+        model = Report
+        fields = '__all__'
 class SentResourceSerializer(ModelSerializer):
     class Meta:
         model = SentResource
         fields = '__all__'
+
+
+class BarSerializer(serializers.Serializer):
+    region = serializers.CharField()
+    zones = serializers.IntegerField()
+    zonescolor = serializers.CharField()
+
+
+
 
 
 
