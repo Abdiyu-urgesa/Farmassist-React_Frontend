@@ -292,7 +292,7 @@ def cancelResource(request):
             resource_old.save()
             print("uih delete from sent recource")
             sentresource.delete()
-            rec=SentResource.objects.filter(sender=user.id)
+            rec=SentResource.objects.filter(sender=user.username)
             serializer = SentResourceSerializer(rec, many=True)
             return Response(serializer.data)
         else:
@@ -307,7 +307,7 @@ def cancelResource(request):
             print(newresource)
             print("uih delete from sent recource")
             sentresource.delete()
-            rec=SentResource.objects.filter(sender=user.id)
+            rec=SentResource.objects.filter(sender=user.username)
             serializer = SentResourceSerializer(rec, many=True)
             return Response(serializer.data)
     except Exception as e:
