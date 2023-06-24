@@ -5,6 +5,11 @@ from .serializers import *
 from .models import *
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from rest_framework.decorators import api_view,permission_classes
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.models import User
+from rest_framework_simplejwt.authentication import JWTAuthentication
+JWT_authenticator = JWTAuthentication()
 # Create your views here.
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
@@ -34,4 +39,12 @@ def deleteUser(request, pk):
     user = User.objects.get(id=pk)
     user.delete()
     return Response('user was deleted')
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def deactivateUser(request, pk):
+    user = User.objects.get(id=pk)
+    user.is_active = False
+    user.save()
+    return Response('User deactivated successfully')
 

@@ -26,6 +26,8 @@ def getbardata(request):
             woredasnum=Woreda.objects.filter(created_by=zone).count()
             woredas=Woreda.objects.filter(created_by=zone)
             for wereda in woredas:
+                print("done3")
+                
                 kebeleAdminnum=KebeleAdmin.objects.filter(created_by=wereda).count()
                 combined_Data.append({
                     "region":region.Region_name,

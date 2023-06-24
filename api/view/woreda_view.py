@@ -20,7 +20,7 @@ def getWeredas(request):
     if response is not None:
         try:
             request_user , token = response
-            zone_name=request_user.region.Region_name
+            zone_name=request_user.zone.Zone_name
             woredas = Woreda.objects.filter(created_by__Zone_name=zone_name)
             serializer = WoredaSerializer(woredas, many=True)
             return Response(serializer.data)

@@ -73,8 +73,8 @@ def getFederal(request, pk):
 @allowed_users(allowed_rolls=['federal'])
 def updatFederal(request, pk):
     data = request.data
-    createFederal = Federal.objects.get(id=pk)
-    serializer = FederalSerializer(instance=createFederal, data=data)
+    federal = Federal.objects.get(id=pk)
+    serializer = FederalSerializer(instance=federal, data=data)
     if serializer.is_valid():
         serializer.save()
     else:

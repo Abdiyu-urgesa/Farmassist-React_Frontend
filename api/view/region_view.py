@@ -80,7 +80,7 @@ def getRegion(request, pk):
 
 @api_view(['PUT'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal'])
+#@allowed_users(allowed_rolls=['federal'])
 def updatRegion(request, pk):
     data = request.data
     region = Region.objects.get(id=pk)

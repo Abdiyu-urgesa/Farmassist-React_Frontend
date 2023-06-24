@@ -18,6 +18,7 @@ urlpatterns = [
     
     path('', views.getRoutes, name="routes"),
     path('user/<str:pk>/delete/', views.deleteUser, name="delete-user"),
+    path('user/<str:pk>/deactivate/', views.deactivateUser, name="delete-user"),
 
     path('api/token/', views.MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
@@ -43,7 +44,11 @@ urlpatterns = [
          name="create-zone"),
     path('zone/<str:pk>', zone_view.getZone, name="get-one-zone"),
     path('zone/<str:pk>/update/', zone_view.updatZone, name="update-zone"),
+
+    path('woredas/', woreda_view.getWeredas, name="get-all-zones"),
     path('woreda/<str:pk>', woreda_view.getWoreda, name="get-one-woreda"),
+    path('woreda/create', woreda_view.createWoreda,
+         name="create-zone"),
     path('woreda/<str:pk>/update/', woreda_view.updateWoreda, name="update-woreda"),
 
     path('kebeleadmins/', KebeleAdmin_view.getKebeleAdmins, name="get-all-zones"),
