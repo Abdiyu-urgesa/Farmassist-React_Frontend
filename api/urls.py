@@ -46,9 +46,9 @@ urlpatterns = [
     path('zone/<str:pk>/update/', zone_view.updatZone, name="update-zone"),
 
     path('woredas/', woreda_view.getWeredas, name="get-all-zones"),
-    path('woreda/<str:pk>', woreda_view.getWoreda, name="get-one-woreda"),
-    path('woreda/create', woreda_view.createWoreda,
+     path('woreda/create', woreda_view.createWoreda,
          name="create-zone"),
+    path('woreda/<str:pk>', woreda_view.getWoreda, name="get-one-woreda"),
     path('woreda/<str:pk>/update/', woreda_view.updateWoreda, name="update-woreda"),
 
     path('kebeleadmins/', KebeleAdmin_view.getKebeleAdmins, name="get-all-zones"),
