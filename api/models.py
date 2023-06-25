@@ -39,6 +39,18 @@ class SentResource(models.Model):
     def __str__(self):
         return self.name
     
+class ResourceTransaction(models.Model):
+    sold_recource = models.CharField(max_length=200, null=True)
+    amount = models.CharField(max_length=200, null=True)
+    buyer = models.CharField(max_length=200, null=True)
+    seller = models.CharField(max_length=200, null=True)
+    price_perKilo = models.CharField(max_length=200, null=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
+
+    def __str__(self):
+        return self.name
+    
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)

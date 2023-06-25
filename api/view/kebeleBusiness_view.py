@@ -97,3 +97,57 @@ def updateKebeleBusiness(request, pk):
         return Response(serializer.errors)
     return Response(serializer.data)
 
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['kebelebusiness'])
+def GetRecourceToDistribute(request):
+    data = request.data
+    response = JWT_authenticator.authenticate(request)
+    if response is not None:
+        try:
+            request_user , token = response
+            kb_id=request_user.kebelebusiness.id
+            kb_user=KebeleBusiness.objects.get(id=kb_id)
+            kebele_admin_user_obj = kb_user.created_by.user
+            resources=Resource.objects.filter(user=kebele_admin_user_obj)
+            serializer = ResourceSerializer(resources, many=True)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response(e)
+    else:
+        return Response("token not provided")
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['kebelebusiness'])
+def distributeRecource(request):
+    data = request.data
+    response = JWT_authenticator.authenticate(request)
+    if response is not None:
+        try:
+            request_user , token = response
+            kb_id=request_user.kebelebusiness.id
+            resource=Resource.objects.filter(id=data['resource_id'])
+            if resource:
+                if int(resource.amount) >int(data['amount']):
+                    transaction= ResourceTransaction.objects.create(
+                        sold_recource=resource.name,
+                        amount=data['amount'],
+                        buyer=data['buyer'],
+                        seller=kb_id,
+                        price_perKilo=resource.price_perKilo
+                    )
+                    resource.amount=int(resource.amount) - int(data['amount'])
+                    resource.save
+                    serializer = ResourceTransactionSerializer(transaction, many=False)
+                    return Response(serializer.data)
+                else:
+                    return Response("not enouogh amount")
+            else:    
+                 return Response("resource not found")
+        except Exception as e:
+            return Response(e)
+    else:
+        return Response("token not provided")

@@ -12,6 +12,7 @@ from .view import farmer_view
 from .view import post_view
 from .view import report_view
 from .view import dashboard_view
+from .view import da_view
 from rest_framework_simplejwt.views import (TokenRefreshView,)
 
 urlpatterns = [
@@ -62,6 +63,13 @@ urlpatterns = [
          name="create-kbelebusiness"),
     path('kbelebusiness/<str:pk>', kebeleBusiness_view.getKebeleBusines, name="get-one-kbelebusiness"),
     path('kbelebusiness/<str:pk>/update/', kebeleBusiness_view.updateKebeleBusiness, name="update-kbelebusiness"),
+
+    path('das/', da_view.getDAs, name="get-all-zones"),
+    path('da/create', da_view.createDA,
+         name="create-kbelebusiness"),
+    path('da/<str:pk>', da_view.getDA, name="get-one-kbelebusiness"),
+    path('da/<str:pk>/update/', da_view.updateDA, name="update-kbelebusiness"),
+
     
     path('privates/', privatesector_view.getPrivateSectors, name="get-all-privates"),
     path('privates/create', privatesector_view.createPrivateSector,
@@ -84,6 +92,8 @@ urlpatterns = [
     path('recievedresources/decline/', resource_view.declineResource),
     path('resource/', resource_view.getResource, name="get-one-resource"),
     path('transfer/', resource_view.transferResource, name="transfer-resource"),
+    path('getresourcetosell/', kebeleBusiness_view.GetRecourceToDistribute, name="transfer-resource"),
+    path('distrbute/', kebeleBusiness_view.distributeRecource, name="transfer-resource"),
 
     path('posts/', post_view.getPosts, name="get-all-posts"),
 

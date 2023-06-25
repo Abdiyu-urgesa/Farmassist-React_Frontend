@@ -20,3 +20,6 @@ admin.site.register(Announcement)
 admin.site.register(Disease)
 admin.site.register(PrivateSector)
 admin.site.register(Post)
+admin.site.register(ResourceTransaction)
+
+

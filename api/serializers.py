@@ -121,6 +121,11 @@ class SentResourceSerializer(ModelSerializer):
         model = SentResource
         fields = '__all__'
 
+class ResourceTransactionSerializer(ModelSerializer):
+    class Meta:
+        model = ResourceTransaction
+        fields = '__all__'
+
 
 class BarSerializer(serializers.Serializer):
     region = serializers.CharField()
