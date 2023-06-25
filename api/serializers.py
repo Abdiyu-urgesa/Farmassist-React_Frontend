@@ -66,6 +66,13 @@ class KebeleBusinessSerializer(ModelSerializer):
         model = KebeleBusiness
         fields = '__all__'
 
+class DASerializer(ModelSerializer):
+    user = UserSerializer(many=False)
+    created_by= StringRelatedField(many=False)
+    class Meta:
+        model = DevelopmentalAgent
+        fields = '__all__'
+
 class FarmerSerializer(ModelSerializer):
     user = UserSerializer(many=False)
     created_by= StringRelatedField(many=False)
@@ -79,6 +86,7 @@ class PrivateSerializer(ModelSerializer):
     class Meta:
         model = PrivateSector
         fields = '__all__'
+
 
 class PostSerializer(ModelSerializer):
     posted_by = UserSerializer(many=False)

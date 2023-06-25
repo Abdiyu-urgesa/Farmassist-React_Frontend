@@ -65,7 +65,7 @@ def linedata(request):
                     "y": rec.amount
                 })
             combined_Data.append({
-                "region": region.Region_name,
+                "id": region.Region_name,
                 "color": f"#{r:02x}{g:02x}{b:02x}",
                 "data": region_data  # Append the inner object list to the outer list
             })
