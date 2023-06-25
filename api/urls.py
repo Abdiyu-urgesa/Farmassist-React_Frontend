@@ -91,6 +91,8 @@ urlpatterns = [
      path('reports/create', report_view.createReport),
 
      path('bardata/', dashboard_view.getbardata),
+     path('linedata/', dashboard_view.linedata),
+
 
 
     

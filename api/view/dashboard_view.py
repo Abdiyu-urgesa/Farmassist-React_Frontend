@@ -9,6 +9,7 @@ JWT_authenticator = JWTAuthentication()
 from django.contrib.auth.models import User
 from ..serializers import *
 from ..models import *
+import random
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
@@ -39,7 +40,36 @@ def getbardata(request):
                     "kebeleAdmincolor": f"hsl({kebeleAdminnum+8*12},70%,50%)",
                 })
 
-
-
     serializer = BarSerializer(combined_Data, many=True)
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def linedata(request):
+    response = JWT_authenticator.authenticate(request)
+    request_user, token = response
+    combined_Data = []
+    regions = Region.objects.all()
+    for region in regions:
+        print(region.Region_name)
+        r = random.randint(0, 255)
+        g = random.randint(0, 255)
+        b = random.randint(0, 255)
+        recource = Resource.objects.filter(user=region.user)
+        if recource is not None:
+            region_data = []  # Create a list to hold inner objects for this region
+            for rec in recource:
+                region_data.append({
+                    "x": rec.name,
+                    "y": rec.amount
+                })
+            combined_Data.append({
+                "region": region.Region_name,
+                "color": f"#{r:02x}{g:02x}{b:02x}",
+                "data": region_data  # Append the inner object list to the outer list
+            })
+    return Response(combined_Data)
+    
+ 
+
