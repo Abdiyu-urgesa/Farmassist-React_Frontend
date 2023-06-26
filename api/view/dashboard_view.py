@@ -11,6 +11,13 @@ from ..serializers import *
 from ..models import *
 import random
 
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def getallUsersInDB(request):
+    users = User.objects.all().count()
+    return Response(users)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def getbardata(request):
