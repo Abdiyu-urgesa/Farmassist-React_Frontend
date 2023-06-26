@@ -20,6 +20,12 @@ def getallUsersInDB(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
+def getalTransactionsInDB(request):
+    transactions = ResourceTransaction.objects.all().count()
+    return Response(transactions)
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
 def getbardata(request):
     response = JWT_authenticator.authenticate(request)
     request_user , token = response

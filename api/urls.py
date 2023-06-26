@@ -103,6 +103,7 @@ urlpatterns = [
 
     path('bardata/', dashboard_view.getbardata),
     path('allusersDashboard/', dashboard_view.getallUsersInDB),
+    path('allTransactions/', dashboard_view.getalTransactionsInDB),
     path('linedata/', dashboard_view.linedata),
 
 
