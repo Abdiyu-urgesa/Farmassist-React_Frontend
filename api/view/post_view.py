@@ -51,7 +51,9 @@ def deletePost(request, pk):
     try:
         post = Post.objects.get(id=pk)
         post.delete()
-        return Response('post was deleted')
+        posts = Post.objects.all().order_by('-created_at')
+        serializer = PostSerializer(posts, many=True)
+        return Response(serializer.data)
     except Exception as e:
         return Response(e) 
     
