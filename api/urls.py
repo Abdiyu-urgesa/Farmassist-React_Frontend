@@ -94,14 +94,12 @@ urlpatterns = [
     path('transfer/', resource_view.transferResource, name="transfer-resource"),
     path('getresourcetosell/', kebeleBusiness_view.GetRecourceToDistribute, name="transfer-resource"),
     path('distrbute/', kebeleBusiness_view.distributeRecource, name="transfer-resource"),
-
+    path('distrbutetransactions/', kebeleBusiness_view.getResourceTransactions, name="transfer-resource"),
     path('posts/', post_view.getPosts, name="get-all-posts"),
-
-     path('reports/', report_view.getReports),
-     path('reports/create', report_view.createReport),
-
-     path('bardata/', dashboard_view.getbardata),
-     path('linedata/', dashboard_view.linedata),
+    path('reports/', report_view.getReports),
+    path('reports/create', report_view.createReport),
+    path('bardata/', dashboard_view.getbardata),
+    path('linedata/', dashboard_view.linedata),
 
 
 

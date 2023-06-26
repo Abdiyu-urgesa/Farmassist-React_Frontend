@@ -17,7 +17,7 @@ def getReports(request):
     response = JWT_authenticator.authenticate(request)
     request_user , token = response
     print(request_user)
-    reports = Report.objects.filter(reported_by=request_user.id)
+    reports = Report.objects.filter(reported_to=request_user.id)
     serializer = ReportSerializer(reports, many=True)
     return Response(serializer.data)
 
@@ -34,7 +34,7 @@ def createReport(request):
     try:
         if my_file:
             resource = Report.objects.create(
-                reported_by=request_user,
+                reported_by=request_user.id,
                 reported_to=data['reported_to'],
                 report_name=data['report_name'],
                 report_file=my_file

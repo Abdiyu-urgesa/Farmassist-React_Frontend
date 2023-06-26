@@ -45,6 +45,7 @@ class ResourceTransaction(models.Model):
     buyer = models.CharField(max_length=200, null=True)
     seller = models.CharField(max_length=200, null=True)
     price_perKilo = models.CharField(max_length=200, null=True)
+    supervisor = models.CharField(max_length=200, null=True)
     updated_at = models.DateTimeField(auto_now=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 

@@ -98,6 +98,8 @@ def updateKebeleBusiness(request, pk):
     return Response(serializer.data)
 
 
+
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 @allowed_users(allowed_rolls=['kebelebusiness'])
@@ -129,6 +131,8 @@ def distributeRecource(request):
         try:
             request_user , token = response
             kb_id=request_user.kebelebusiness.id
+            kb_user=KebeleBusiness.objects.get(id=kb_id)
+            kebele_admin_user_obj = kb_user.created_by.user
             resource=Resource.objects.filter(id=data['resource_id'])
             if resource:
                 if int(resource.amount) >int(data['amount']):
@@ -137,7 +141,8 @@ def distributeRecource(request):
                         amount=data['amount'],
                         buyer=data['buyer'],
                         seller=kb_id,
-                        price_perKilo=resource.price_perKilo
+                        price_perKilo=resource.price_perKilo,
+                        supervisor=kebele_admin_user_obj.id
                     )
                     resource.amount=int(resource.amount) - int(data['amount'])
                     resource.save
@@ -151,3 +156,17 @@ def distributeRecource(request):
             return Response(e)
     else:
         return Response("token not provided")
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+@allowed_users(allowed_rolls=['kebeleadmin'])
+def getResourceTransactions(request):
+    response = JWT_authenticator.authenticate(request)
+    if response is not None:
+        try:
+            request_user , token = response
+            transactions = ResourceTransaction.objects.filter(supervisor=request_user.user.id)
+            serializer = ResourceTransactionSerializer(transactions, many=True)
+            return Response(serializer.data)
+        except:
+            return Response("something went wrong in the try block") 

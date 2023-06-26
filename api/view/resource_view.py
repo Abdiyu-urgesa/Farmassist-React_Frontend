@@ -227,8 +227,7 @@ def declineResource(request):
         print (e)
         return Response(e)
     
-
-
+    
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 @allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
