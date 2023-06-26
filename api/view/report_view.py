@@ -35,8 +35,8 @@ def createReport(request):
         if my_file:
             resource = Report.objects.create(
                 reported_by=request_user.id,
-                reported_to=data['reported_to'],
-                report_name=data['report_name'],
+                reported_to=request.POST.get('reported_to'),
+                report_name=request.POST.get('report_name'),
                 report_file=my_file
             )  
             print("dershalew\n")     

@@ -97,6 +97,7 @@ urlpatterns = [
     path('distrbutetransactions/', kebeleBusiness_view.getResourceTransactions, name="transfer-resource"),
 
     path('posts/', post_view.getPosts, name="get-all-posts"),
+    path('posts/create', post_view.createPost, name="get-all-posts"),
 
     path('reports/', report_view.getReports),
     path('reports/create', report_view.createReport),

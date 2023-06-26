@@ -21,4 +21,27 @@ def getPosts(request):
             return Response(e) 
 
 
-
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createPost(request):
+    data = request.data
+    response = JWT_authenticator.authenticate(request)
+    request_user , token = response
+    user=User.objects.get(id=request_user.id)
+    try:
+        if user:
+            post = Post.objects.create(
+                posted_by=user,
+                title = request.POST.get('title'),
+                discription = request.POST.get('discription'),
+                thumbnail = request.FILES.get('file'),
+                rank = "0"
+            )  
+            print("dershalew\n")     
+            _post=Post.objects.get(id=post.id)
+            serializer = PostSerializer(_post, many=False)
+            return Response(serializer.data)
+        else:
+            return Response("user not found")
+    except Exception as e:
+        return Response(e) 
