@@ -40,7 +40,7 @@ def deleteUser(request, pk):
     user.delete()
     return Response('user was deleted')
 
-@api_view(['DELETE'])
+@api_view(['PUT'])
 @permission_classes([IsAuthenticated])
 def deactivateUser(request, pk):
     user = User.objects.get(id=pk)
