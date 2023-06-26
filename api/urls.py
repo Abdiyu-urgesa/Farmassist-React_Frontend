@@ -98,6 +98,8 @@ urlpatterns = [
 
     path('posts/', post_view.getPosts, name="get-all-posts"),
     path('posts/create', post_view.createPost, name="get-all-posts"),
+    path('posts/<str:pk>/delete', post_view.deletePost, name="delete-user"),
+
 
     path('reports/', report_view.getReports),
     path('reports/create', report_view.createReport),

@@ -14,7 +14,7 @@ from ..models import *
 @api_view(['GET'])
 def getPosts(request):
         try:
-            posts = Post.objects.all()
+            posts = Post.objects.all().order_by('-created_at')
             serializer = PostSerializer(posts, many=True)
             return Response(serializer.data)
         except Exception as e:
@@ -34,7 +34,7 @@ def createPost(request):
                 posted_by=user,
                 title = request.POST.get('title'),
                 discription = request.POST.get('discription'),
-                thumbnail = request.FILES.get('file'),
+                thumbnail = request.FILES.get('thumbnail'),
                 rank = "0"
             )  
             print("dershalew\n")     
@@ -45,3 +45,14 @@ def createPost(request):
             return Response("user not found")
     except Exception as e:
         return Response(e) 
+
+@api_view(['DELETE'])
+def deletePost(request, pk):
+    try:
+        post = Post.objects.get(id=pk)
+        post.delete()
+        return Response('post was deleted')
+    except Exception as e:
+        return Response(e) 
+    
+   
