@@ -165,7 +165,7 @@ def getResourceTransactions(request):
     if response is not None:
         try:
             request_user , token = response
-            transactions = ResourceTransaction.objects.filter(supervisor=request_user.user.id)
+            transactions = ResourceTransaction.objects.filter(supervisor=request_user.id)
             serializer = ResourceTransactionSerializer(transactions, many=True)
             return Response(serializer.data)
         except:
