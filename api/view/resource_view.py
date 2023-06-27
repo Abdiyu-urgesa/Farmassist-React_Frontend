@@ -12,7 +12,7 @@ from ..models import *
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin','kebelebusiness'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin','kebelebusiness'])
 def getResources(request):
     response = JWT_authenticator.authenticate(request)
     request_user , token = response
@@ -51,7 +51,7 @@ def createResource(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin'])
 def getResource(request, pk):
     try:
         resource = Resource.objects.get(id=pk)
@@ -76,7 +76,7 @@ def updateResource(request, pk):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin'])
 def transferResource(request):
     try:
         data = request.data
@@ -108,7 +108,7 @@ def transferResource(request):
     
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin'])
 def getSentResource(request):
     try:
         response = JWT_authenticator.authenticate(request)
@@ -123,7 +123,7 @@ def getSentResource(request):
     
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin'])
 def getrecievedResource(request):
     try:
         response = JWT_authenticator.authenticate(request)
@@ -143,7 +143,7 @@ def getrecievedResource(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin'])
 def acceptResource(request):
     try:
         data = request.data
@@ -186,7 +186,7 @@ def acceptResource(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin'])
 def declineResource(request):
     try:
         data = request.data
@@ -230,7 +230,7 @@ def declineResource(request):
     
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin'])
 def acceptResource(request):
     try:
         data = request.data
@@ -273,7 +273,7 @@ def acceptResource(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebeleadmin'])
 def cancelResource(request):
     try:
         data = request.data
