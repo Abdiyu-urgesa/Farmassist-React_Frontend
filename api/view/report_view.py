@@ -33,22 +33,19 @@ def createReport(request):
     user=User.objects.get(id=request_user.id)
     print(user)
     user_group=request.user.groups.all().first()
-    print(user_group.name)
-    if user_group.name=="kebele_admin":
+    print(type(user_group.name))
+    if user_group.name =="kebeleadmin":
         kb=KebeleAdmin.objects.get(user=user)
-        to=kb.created_by
-    if user_group.name=="woreda":
+        to=kb.created_by.user.id
+    elif user_group.name =="woreda":
         kb=Woreda.objects.get(user=user)
-        to=kb.created_by
-    if user_group.name=="zone":
+        to=kb.created_by.user.id
+    elif user_group.name =="zone":
         kb=Zone.objects.get(user=user)
-        to=kb.created_by
+        to=kb.created_by.user.id
     else:
         kb=Region.objects.get(user=user)
         to=kb.created_by
-    print(to)
-    print(to)
-    print(to)
     try:
         if my_file and to:
             resource = Report.objects.create(
