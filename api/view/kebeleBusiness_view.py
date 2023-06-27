@@ -159,7 +159,7 @@ def distributeRecource(request):
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['kebeleadmin'])
+@allowed_users(allowed_rolls=['kebeleadmin','kebelebusiness'])
 def getResourceTransactions(request):
     response = JWT_authenticator.authenticate(request)
     if response is not None:

@@ -24,13 +24,15 @@ def getReports(request):
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin','kebelebusiness'])
 def createReport(request):
     data = request.data
     my_file = request.FILES.get('my_file')
     response = JWT_authenticator.authenticate(request)
     request_user , token = response
     user=User.objects.get(id=request_user.id)
+    to=user.created_by.user.id
+    print(to)
     try:
         if my_file:
             resource = Report.objects.create(

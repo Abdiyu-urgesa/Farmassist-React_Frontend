@@ -12,7 +12,7 @@ from ..models import *
 
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin'])
+@allowed_users(allowed_rolls=['federal','region','zone','woreda','kebele_admin','kebelebusiness'])
 def getResources(request):
     response = JWT_authenticator.authenticate(request)
     request_user , token = response
