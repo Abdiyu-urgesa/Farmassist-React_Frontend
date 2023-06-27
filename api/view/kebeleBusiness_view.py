@@ -133,9 +133,13 @@ def distributeRecource(request):
             kb_id=request_user.kebelebusiness.id
             kb_user=KebeleBusiness.objects.get(id=kb_id)
             kebele_admin_user_obj = kb_user.created_by.user
-            resource=Resource.objects.filter(id=data['resource_id'])
+            print(kebele_admin_user_obj)
+            resource=Resource.objects.filter(id=data['resource_id']).first()
+            print(resource.amount)
             if resource:
+                print("1111111")
                 if int(resource.amount) >int(data['amount']):
+                    print("222222")
                     transaction= ResourceTransaction.objects.create(
                         sold_recource=resource.name,
                         amount=data['amount'],
@@ -144,6 +148,8 @@ def distributeRecource(request):
                         price_perKilo=resource.price_perKilo,
                         supervisor=kebele_admin_user_obj.id
                     )
+                    print("fffffggggg")
+
                     resource.amount=int(resource.amount) - int(data['amount'])
                     resource.save
                     serializer = ResourceTransactionSerializer(transaction, many=False)
